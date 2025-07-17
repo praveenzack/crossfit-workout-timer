@@ -4,10 +4,8 @@
   "description": "A comprehensive CrossFit workout timer application",
   "main": "index.html",
   "scripts": {
-    "build": "echo 'Static files ready for deployment'",
     "start": "serve -s .",
-    "dev": "serve -s . -p 3000",
-    "test": "echo 'No tests specified'"
+    "dev": "serve -s . -p 3000"
   },
   "keywords": [
     "crossfit",
@@ -19,8 +17,5 @@
     "tabata"
   ],
   "author": "Praveen",
-  "license": "MIT",
-  "devDependencies": {
-    "serve": "^14.2.0"
-  }
+  "license": "MIT"
 }

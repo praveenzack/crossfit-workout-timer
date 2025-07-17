@@ -4,9 +4,9 @@
   "description": "A comprehensive CrossFit workout timer application",
   "main": "index.html",
   "scripts": {
+    "build": "echo 'Static files ready for deployment'",
     "start": "serve -s .",
     "dev": "serve -s . -p 3000",
-    "build": "echo 'Static files ready'",
     "test": "echo 'No tests specified'"
   },
   "keywords": [
@@ -18,7 +18,7 @@
     "emom",
     "tabata"
   ],
-  "author": "",
+  "author": "Praveen",
   "license": "MIT",
   "devDependencies": {
     "serve": "^14.2.0"

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CrossFit Workout Timer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#00ff88">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body>
+    <div class="app-container">
+        <header class="header">
+            <h1 class="app-title">CrossFit Timer</h1>
+            <button class="settings-btn" id="settingsBtn">⚙️</button>
+        </header>
+
+        <main class="main-content">
+            <!-- Timer Selection -->
+            <div class="timer-selection" id="timerSelection">
+                <h2>Select Timer Type</h2>
+                <div class="timer-buttons">
+                    <button class="timer-btn" data-type="amrap">AMRAP</button>
+                    <button class="timer-btn" data-type="emom">EMOM</button>
+                    <button class="timer-btn" data-type="tabata">Tabata</button>
+                    <button class="timer-btn" data-type="custom">Custom</button>
+                    <button class="timer-btn" data-type="countdown">Countdown</button>
+                </div>
+                <div class="preset-section">
+                    <h3>Quick Start Presets</h3>
+                    <div class="preset-buttons" id="presetButtons">
+                        <!-- Preset buttons will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timer Configuration -->
+            <div class="timer-config" id="timerConfig" style="display: none;">
+                <h2 id="configTitle">Configure Timer</h2>
+                <div class="config-form">
+                    <div class="picker-group" id="workTimeGroup">
+                        <label>Work Time</label>
+                        <div class="time-picker-container">
+                            <div class="time-picker">
+                                <div class="picker-column">
+                                    <div class="picker-label">Minutes</div>
+                                    <div class="picker-wheel" id="workMinutes">
+                                        <div class="picker-selection-indicator"></div>
+                                        <div class="picker-options" data-type="minutes">
+                                            <!-- Minutes options will be populated by JavaScript -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="picker-column">
+                                    <div class="picker-label">Seconds</div>
+                                    <div class="picker-wheel" id="workSeconds">
+                                        <div class="picker-selection-indicator"></div>
+                                        <div class="picker-options" data-type="seconds">
+                                            <!-- Seconds options will be populated by JavaScript -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="picker-group" id="restTimeGroup">
+                        <label>Rest Time</label>
+                        <div class="time-picker-container">
+                            <div class="time-picker">
+                                <div class="picker-column">
+                                    <div class="picker-label">Minutes</div>
+                                    <div class="picker-wheel" id="restMinutes">
+                                        <div class="picker-selection-indicator"></div>
+                                        <div class="picker-options" data-type="minutes">
+                                            <!-- Minutes options will be populated by JavaScript -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="picker-column">
+                                    <div class="picker-label">Seconds</div>
+                                    <div class="picker-wheel" id="restSeconds">
+                                        <div class="picker-selection-indicator"></div>
+                                        <div class="picker-options" data-type="seconds">
+                                            <!-- Seconds options will be populated by JavaScript -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="picker-group" id="roundsGroup">
+                        <label>Rounds</label>
+                        <div class="rounds-picker-container">
+                            <div class="rounds-picker">
+                                <div class="picker-column">
+                                    <div class="picker-label">Count</div>
+                                    <div class="picker-wheel" id="roundsCount">
+                                        <div class="picker-selection-indicator"></div>
+                                        <div class="picker-options" data-type="rounds">
+                                            <!-- Rounds options will be populated by JavaScript -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="picker-group" id="prepTimeGroup">
+                        <label>Prep Time</label>
+                        <div class="time-picker-container">
+                            <div class="time-picker">
+                                <div class="picker-column">
+                                    <div class="picker-label">Seconds</div>
+                                    <div class="picker-wheel" id="prepSeconds">
+                                        <div class="picker-selection-indicator"></div>
+                                        <div class="picker-options" data-type="prep-seconds">
+                                            <!-- Prep seconds options will be populated by JavaScript -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="config-actions">
+                    <button class="btn btn-secondary" id="backBtn">Back</button>
+                    <button class="btn btn-primary" id="startTimerBtn">Start Timer</button>
+                </div>
+            </div>
+
+            <!-- Timer Display -->
+            <div class="timer-display" id="timerDisplay" style="display: none;">
+                <div class="timer-status">
+                    <div class="status-indicator" id="statusIndicator">PREP</div>
+                    <div class="round-counter" id="roundCounter">Round 1 / 8</div>
+                </div>
+                
+                <!-- Circular Timer -->
+                <div class="circular-timer">
+                    <div class="timer-circle">
+                        <svg class="progress-ring" viewBox="0 0 320 320">
+                            <defs>
+                                <linearGradient id="circleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+                                </linearGradient>
+                                <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#00ff88;stop-opacity:1" />
+                                    <stop offset="50%" style="stop-color:#00cc6a;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#00ff88;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <circle class="progress-ring__circle-bg" cx="160" cy="160" r="140" />
+                            <circle class="progress-ring__circle" cx="160" cy="160" r="140" id="progressCircle" />
+                            <circle class="progress-ring__progress" cx="160" cy="160" r="140" id="progressBar" />
+                        </svg>
+                        <div class="timer-content">
+                            <div class="time-display" id="timeDisplay">00:10</div>
+                            <div class="timer-label" id="timerLabel">Get Ready</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Timer Controls -->
+                <div class="timer-controls">
+                    <button class="control-btn" id="playPauseBtn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5v14l11-7z" id="playIcon"/>
+                            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" id="pauseIcon" style="display: none;"/>
+                        </svg>
+                    </button>
+                    <button class="control-btn" id="resetBtn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z"/>
+                        </svg>
+                    </button>
+                    <button class="control-btn" id="stopBtn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M6 6h12v12H6z"/>
+                        </svg>
+                    </button>
+                    <button class="control-btn secondary" id="backToSelectionBtn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                        </svg>
+                        <span>Back</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Settings Panel -->
+            <div class="settings-panel" id="settingsPanel" style="display: none;">
+                <h2>Settings</h2>
+                <div class="settings-content">
+                    <div class="setting-group">
+                        <label for="voiceEnabled">Voice Announcements</label>
+                        <input type="checkbox" id="voiceEnabled" checked>
+                    </div>
+                    <div class="setting-group">
+                        <label for="voiceGender">Voice Gender</label>
+                        <select id="voiceGender">
+                            <option value="female">Female</option>
+                            <option value="male">Male</option>
+                        </select>
+                    </div>
+                    <div class="setting-group">
+                        <label for="voiceLanguage">Voice Language</label>
+                        <select id="voiceLanguage">
+                            <option value="en-US">English (US)</option>
+                            <option value="en-GB">English (UK)</option>
+                            <option value="es-ES">Spanish</option>
+                            <option value="fr-FR">French</option>
+                        </select>
+                    </div>
+                    <div class="setting-group">
+                        <label for="countdownWarning">Countdown Warning (seconds)</label>
+                        <input type="number" id="countdownWarning" min="0" max="10" value="5">
+                    </div>
+                    <div class="setting-group">
+                        <label for="musicVolume">Music Volume During Alerts</label>
+                        <input type="range" id="musicVolume" min="0" max="100" value="20">
+                    </div>
+                </div>
+                <div class="settings-actions">
+                    <button class="btn btn-secondary" id="closeSettingsBtn">Close</button>
+                    <button class="btn btn-primary" id="saveSettingsBtn">Save</button>
+                </div>
+            </div>
+
+            <!-- History Panel -->
+            <div class="history-panel" id="historyPanel" style="display: none;">
+                <h2>Workout History</h2>
+                <div class="history-content">
+                    <div class="history-actions">
+                        <button class="btn btn-secondary" id="exportHistoryBtn">Export</button>
+                        <button class="btn btn-danger" id="clearHistoryBtn">Clear All</button>
+                    </div>
+                    <div class="history-list" id="historyList">
+                        <!-- History items will be populated here -->
+                    </div>
+                </div>
+                <button class="btn btn-secondary" id="closeHistoryBtn">Close</button>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <button class="footer-btn" id="historyBtn">📊 History</button>
+            <button class="footer-btn" id="favoritesBtn">⭐ Favorites</button>
+        </footer>
+    </div>
+
+    <script src="presets.js"></script>
+    <script src="scroll-picker.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

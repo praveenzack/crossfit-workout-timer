@@ -1,0 +1,37 @@
+{
+    "name": "CrossFit Workout Timer",
+    "short_name": "WOD Timer",
+    "description": "A comprehensive CrossFit workout timer with voice announcements",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0a0a0a",
+    "theme_color": "#00ff88",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "categories": ["fitness", "health", "lifestyle", "sports"],
+    "screenshots": [
+        {
+            "src": "screenshot1.png",
+            "sizes": "540x720",
+            "type": "image/png"
+        }
+    ],
+    "permissions": [
+        "notifications",
+        "wakeLock"
+    ],
+    "features": [
+        "Cross Origin Isolated"
+    ]
+}

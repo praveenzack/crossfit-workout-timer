@@ -1,0 +1,26 @@
+{
+  "name": "crossfit-workout-timer",
+  "version": "1.0.0",
+  "description": "A comprehensive CrossFit workout timer application",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve -s .",
+    "dev": "serve -s . -p 3000",
+    "build": "echo 'Static files ready'",
+    "test": "echo 'No tests specified'"
+  },
+  "keywords": [
+    "crossfit",
+    "timer",
+    "workout",
+    "fitness",
+    "amrap",
+    "emom",
+    "tabata"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.0"
+  }
+}

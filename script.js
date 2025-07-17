@@ -24,6 +24,7 @@ class CrossFitTimer {
         this.requestWakeLock();
         this.populatePresets();
         this.initializeScrollPickers();
+        this.initializeSpeedInsights();
     }
 
     initializeElements() {
@@ -124,6 +125,7 @@ class CrossFitTimer {
         this.timerType = type;
         this.configureTimer(type);
         this.showScreen('config');
+        this.trackTimerEvent('timer-type-selected', { type });
     }
 
     selectPreset(preset) {
@@ -134,6 +136,7 @@ class CrossFitTimer {
             this.restTime = config.restTime;
             this.totalRounds = config.rounds;
             this.prepTime = config.prepTime;
+            this.trackTimerEvent('preset-selected', { preset, type: config.type });
             this.startTimer();
         }
     }
@@ -225,6 +228,13 @@ class CrossFitTimer {
         this.updateDisplay();
         this.startInterval();
         this.speak('Get ready!');
+        
+        this.trackTimerEvent('timer-started', { 
+            type: this.timerType, 
+            workTime: this.workTime, 
+            restTime: this.restTime, 
+            rounds: this.totalRounds 
+        });
         
         this.saveToHistory();
     }
@@ -338,6 +348,11 @@ class CrossFitTimer {
         this.updateDisplay();
         this.playFinishSound();
         clearInterval(this.intervalId);
+        
+        this.trackTimerEvent('workout-completed', { 
+            type: this.timerType, 
+            totalRounds: this.totalRounds 
+        });
     }
 
     togglePlayPause() {
@@ -772,6 +787,20 @@ class CrossFitTimer {
 
     showFavorites() {
         console.log('Favorites feature coming soon!');
+    }
+
+    initializeSpeedInsights() {
+        // Track app initialization time
+        if (typeof window.si === 'function') {
+            window.si('track', 'app-initialized');
+        }
+    }
+
+    trackTimerEvent(event, data = {}) {
+        // Track key timer events for performance analysis
+        if (typeof window.si === 'function') {
+            window.si('track', event, data);
+        }
     }
 
     handleBackgroundMode() {

@@ -1,6 +1,6 @@
 {
-    "name": "CrossFit Workout Timer",
-    "short_name": "WOD Timer",
+    "name": "TuffTimer Workout Timer",
+    "short_name": "TuffTimer",
     "description": "A comprehensive CrossFit workout timer with voice announcements",
     "start_url": "/",
     "display": "standalone",
@@ -9,12 +9,12 @@
     "orientation": "portrait-primary",
     "icons": [
         {
-            "src": "icon-192x192.png",
+            "src": "TUFFTIMER_s.png",
             "sizes": "192x192",
             "type": "image/png"
         },
         {
-            "src": "icon-512x512.png",
+            "src": "TUFFTIMER_b.png",
             "sizes": "512x512",
             "type": "image/png"
         }

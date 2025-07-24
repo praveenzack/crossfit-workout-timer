@@ -1,7 +1,7 @@
 {
     "name": "TuffTimer Workout Timer",
     "short_name": "TuffTimer",
-    "description": "A comprehensive CrossFit workout timer with voice announcements",
+    "description": "A comprehensive workout timer with voice announcements",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#0a0a0a",

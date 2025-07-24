@@ -806,7 +806,7 @@ class CrossFitTimer {
     handleBackgroundMode() {
         if (this.isRunning && !this.isPaused) {
             navigator.serviceWorker.ready.then(registration => {
-                registration.showNotification('CrossFit Timer', {
+                registration.showNotification('TuffTimer', {
                     body: `${this.currentPhase.toUpperCase()} - ${this.formatTime(this.currentTime)}`,
                     icon: '/icon-192x192.png',
                     badge: '/icon-192x192.png',

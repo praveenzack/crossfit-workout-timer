@@ -59,11 +59,12 @@ body {
 .app-title {
     font-size: 1.8rem;
     font-weight: 700;
-    background: var(--primary-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-shadow: none;
+    line-height: 1; /* Ensure h1 doesn't take extra vertical space */
+}
+
+.logo-img {
+    height: 35px;
+    display: block;
 }
 
 .settings-btn {

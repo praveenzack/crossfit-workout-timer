@@ -1,6 +1,6 @@
-# CrossFit Workout Timer
+# TuffTimer Workout Timer
 
-A comprehensive CrossFit workout timer application built with vanilla JavaScript, HTML, and CSS. Features voice announcements, customizable timers, and a focus on reliability under intense usage conditions.
+A comprehensive workout timer application built with vanilla JavaScript, HTML, and CSS. Features voice announcements, customizable timers, and a focus on reliability under intense usage conditions.
 
 ## Features
 
